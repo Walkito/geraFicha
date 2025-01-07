@@ -12,4 +12,12 @@ public class Utils {
                 HttpStatus.INTERNAL_SERVER_ERROR.value()
         );
     }
+
+    public static ApiResponse getDefaultLinkResponse(){
+        return new ApiResponse(
+                "Vinculo realizado com sucesso",
+                null,
+                HttpStatus.OK.value()
+        );
+    }
 }

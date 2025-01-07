@@ -1,7 +1,9 @@
-package com.walkito.geraFicha.service;
+package com.walkito.geraFicha.service.Race;
 
 import com.walkito.geraFicha.config.Utils;
 import com.walkito.geraFicha.model.ApiResponse;
+import com.walkito.geraFicha.model.Language.Language;
+import com.walkito.geraFicha.model.Language.LanguageRepository;
 import com.walkito.geraFicha.model.Race.Race;
 import com.walkito.geraFicha.model.Race.RaceRepository;
 import com.walkito.geraFicha.model.Race.Trait.Trait;
@@ -22,6 +24,9 @@ public class RaceService {
 
     @Autowired
     private TraitRepository traitRepository;
+
+    @Autowired
+    private LanguageRepository languageRepository;
 
     public ApiResponse getAllRaces() {
         try {
@@ -78,12 +83,24 @@ public class RaceService {
 
             raceRepository.save(race);
 
-            return new ApiResponse(
-                    "Vínculo realizado com sucesso.",
-                    null,
-                    HttpStatus.OK.value()
-            );
+            return Utils.getDefaultLinkResponse();
         } catch (Exception e) {
+            return Utils.getDefaultInternalError(e);
+        }
+    }
+
+    public ApiResponse linkRaceAndLanguage(int idLanguage, int idRace){
+        try{
+            Race race = raceRepository.findById(idRace).orElseThrow(() -> new EntityNotFoundException("Raça não encontrada"));
+            Language language = languageRepository.findById(idLanguage).orElseThrow(() -> new EntityNotFoundException("Idioma não encontrado"));
+
+            race.getLanguages().add(language);
+            language.getRaces().add(race);
+
+            raceRepository.save(race);
+
+            return Utils.getDefaultLinkResponse();
+        } catch (Exception e){
             return Utils.getDefaultInternalError(e);
         }
     }

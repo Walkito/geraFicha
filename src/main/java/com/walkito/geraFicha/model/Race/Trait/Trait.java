@@ -17,9 +17,20 @@ public class Trait {
     @Column(length = 40)
     private String txName;
 
+    @Column(columnDefinition = "TEXT")
+    private String txDescription;
+
     @ManyToMany(mappedBy = "traits")
     @JsonIgnore
     private List<Race> races = new ArrayList<>();
+
+    public String getTxDescription() {
+        return txDescription;
+    }
+
+    public void setTxDescription(String txDescription) {
+        this.txDescription = txDescription;
+    }
 
     public int getId() {
         return id;

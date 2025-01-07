@@ -1,8 +1,8 @@
-package com.walkito.geraFicha.control;
+package com.walkito.geraFicha.control.Race;
 
 import com.walkito.geraFicha.model.ApiResponse;
 import com.walkito.geraFicha.model.Race.Race;
-import com.walkito.geraFicha.service.RaceService;
+import com.walkito.geraFicha.service.Race.RaceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +27,15 @@ public class RaceController {
         return raceService.createRace(race);
     }
 
-    @PostMapping(path = "/link")
+    @PostMapping(path = "/linkTrait")
     public ApiResponse linkRaceAndTrait(@RequestParam(name = "idRace") int idRace,
                                         @RequestParam(name = "idTrait") int idTrait){
         return raceService.linkRaceAndTrait(idRace, idTrait);
+    }
+
+    @PostMapping(path = "/linkLanguage")
+    public ApiResponse linkLanguageAndRace(@RequestParam(name = "idLanguage") int idLanguage,
+                                           @RequestParam(name = "idRace") int idRace){
+        return raceService.linkRaceAndLanguage(idLanguage, idRace);
     }
 }

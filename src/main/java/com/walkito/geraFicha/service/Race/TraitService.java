@@ -1,29 +1,28 @@
-package com.walkito.geraFicha.service;
+package com.walkito.geraFicha.service.Race;
 
 import com.walkito.geraFicha.config.Utils;
 import com.walkito.geraFicha.model.ApiResponse;
-import com.walkito.geraFicha.model.Language.Language;
-import com.walkito.geraFicha.model.Language.LanguageRepository;
+import com.walkito.geraFicha.model.Race.Trait.Trait;
+import com.walkito.geraFicha.model.Race.Trait.TraitRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
-public class LanguageService {
+public class TraitService {
     @Autowired
-    LanguageRepository languageRepository;
+    TraitRepository traitRepository;
 
-    public ApiResponse createLanguage(Language language){
+    public ApiResponse createTrait(Trait trait){
         try{
             return new ApiResponse(
-                    "Novo idioma criado",
-                    languageRepository.save(language),
+                    "Traço criado com sucesso!",
+                    traitRepository.save(trait),
                     HttpStatus.CREATED.value()
             );
         } catch (Exception e){
             return Utils.getDefaultInternalError(e);
         }
     }
-
 
 }

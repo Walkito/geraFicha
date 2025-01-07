@@ -1,16 +1,16 @@
-package com.walkito.geraFicha.model.Race;
+package com.walkito.geraFicha.model.Antecedent;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.walkito.geraFicha.model.Item.Item;
 import com.walkito.geraFicha.model.Language.Language;
-import com.walkito.geraFicha.model.Race.Trait.Trait;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "races")
-public class Race {
+@Table(name = "antecedents")
+public class Antecedent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -20,13 +20,21 @@ public class Race {
 
     @ManyToMany
     @JoinTable
-    private List<Trait> traits = new ArrayList<>();
+    private List<Language> languages = new ArrayList<>();
 
     @ManyToMany
     @JoinTable
-    private List<Language> languages = new ArrayList<>();
+    private List<Item> itens = new ArrayList<>();
 
-    public Race() {
+    public Antecedent() {
+    }
+
+    public List<Item> getItens() {
+        return itens;
+    }
+
+    public void setItens(List<Item> itens) {
+        this.itens = itens;
     }
 
     public List<Language> getLanguages() {
@@ -37,12 +45,12 @@ public class Race {
         this.languages = languages;
     }
 
-    public List<Trait> getTraits() {
-        return traits;
+    public String getTxName() {
+        return txName;
     }
 
-    public void setTraits(List<Trait> traits) {
-        this.traits = traits;
+    public void setTxName(String txName) {
+        this.txName = txName;
     }
 
     public int getId() {
@@ -51,13 +59,5 @@ public class Race {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public String getTxName() {
-        return txName;
-    }
-
-    public void setTxName(String txName) {
-        this.txName = txName;
     }
 }

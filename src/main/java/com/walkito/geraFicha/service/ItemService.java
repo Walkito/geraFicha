@@ -2,22 +2,22 @@ package com.walkito.geraFicha.service;
 
 import com.walkito.geraFicha.config.Utils;
 import com.walkito.geraFicha.model.ApiResponse;
-import com.walkito.geraFicha.model.Race.Trait.Trait;
-import com.walkito.geraFicha.model.Race.Trait.TraitRepository;
+import com.walkito.geraFicha.model.Item.Item;
+import com.walkito.geraFicha.model.Item.ItemRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service
-public class TraitService {
+public class ItemService {
     @Autowired
-    TraitRepository traitRepository;
+    private ItemRepository itemRepository;
 
-    public ApiResponse createTrait(Trait trait){
+    public ApiResponse createItem(Item item){
         try{
             return new ApiResponse(
-                    "Traço criado com sucesso!",
-                    traitRepository.save(trait),
+                    "Item criado com sucesso",
+                    itemRepository.save(item),
                     HttpStatus.CREATED.value()
             );
         } catch (Exception e){
