@@ -3,6 +3,8 @@ package com.walkito.geraFicha.model.Class.Characteristic;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.walkito.geraFicha.model.Class.Class;
 import com.walkito.geraFicha.model.Class.SubClass.SubClass;
+import com.walkito.geraFicha.model.Level.Level;
+import com.walkito.geraFicha.model.Proficiency.Proficiency;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -29,7 +31,31 @@ public class Characteristic {
     @JsonIgnore
     private List<Class> classes = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable
+    private List<Proficiency> proficiencies = new ArrayList<>();
+
+    @ManyToMany
+    @JoinTable
+    private List<Level> levels = new ArrayList<>();
+
     public Characteristic() {
+    }
+
+    public List<Level> getLevels() {
+        return levels;
+    }
+
+    public void setLevels(List<Level> levels) {
+        this.levels = levels;
+    }
+
+    public List<Proficiency> getProficiencies() {
+        return proficiencies;
+    }
+
+    public void setProficiencies(List<Proficiency> proficiencies) {
+        this.proficiencies = proficiencies;
     }
 
     public List<Class> getClasses() {

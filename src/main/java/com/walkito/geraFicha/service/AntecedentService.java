@@ -8,6 +8,8 @@ import com.walkito.geraFicha.model.Item.Item;
 import com.walkito.geraFicha.model.Item.ItemRepository;
 import com.walkito.geraFicha.model.Language.Language;
 import com.walkito.geraFicha.model.Language.LanguageRepository;
+import com.walkito.geraFicha.model.Proficiency.Proficiency;
+import com.walkito.geraFicha.model.Proficiency.ProficiencyRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -24,6 +26,9 @@ public class    AntecedentService {
 
     @Autowired
     private ItemRepository itemRepository;
+
+    @Autowired
+    private ProficiencyRepository proficiencyRepository;
 
     public ApiResponse getAllAntecedents(){
         try{
@@ -78,6 +83,22 @@ public class    AntecedentService {
             return Utils.getDefaultLinkResponse();
         } catch (Exception e){
             return Utils.getDefaultInternalError(e);
+        }
+    }
+
+    public ApiResponse linkAntecedentAndProficiency(int idAntecedent, int idProficiency){
+        try{
+            Antecedent antecedent = antecedentRepository.findById(idAntecedent).orElseThrow(() -> new EntityNotFoundException("Antecedente não encontrado"));
+            Proficiency proficiency = proficiencyRepository.findById(idProficiency).orElseThrow(() -> new EntityNotFoundException("Proficiencia não encontrada"));
+
+            antecedent.getProficiencies().add(proficiency);
+            proficiency.getAntecedents().add(antecedent);
+
+            antecedentRepository.save(antecedent);
+
+            return Utils.getDefaultLinkResponse();
+        } catch (Exception e){
+            return Utils.getDefaultLinkResponse();
         }
     }
 }

@@ -10,6 +10,8 @@ import com.walkito.geraFicha.model.Class.SubClass.SubClass;
 import com.walkito.geraFicha.model.Class.SubClass.SubClassRepository;
 import com.walkito.geraFicha.model.Item.Item;
 import com.walkito.geraFicha.model.Item.ItemRepository;
+import com.walkito.geraFicha.model.Proficiency.Proficiency;
+import com.walkito.geraFicha.model.Proficiency.ProficiencyRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,6 +31,9 @@ public class ClassService {
 
     @Autowired
     private CharacteristicRepository characteristicRepository;
+
+    @Autowired
+    private ProficiencyRepository proficiencyRepository;
 
     public ApiResponse getAllClasses(){
         try{
@@ -93,6 +98,22 @@ public class ClassService {
 
             _class.getCharacteristics().add(characteristic);
             characteristic.getClasses().add(_class);
+
+            classRepository.save(_class);
+
+            return Utils.getDefaultLinkResponse();
+        } catch (Exception e){
+            return Utils.getDefaultInternalError(e);
+        }
+    }
+
+    public ApiResponse linkClassAndProficiency(int idClass, int idProficiency){
+        try{
+            Class _class = classRepository.findById(idClass).orElseThrow(() -> new EntityNotFoundException("Classe não encontrada"));
+            Proficiency proficiency = proficiencyRepository.findById(idProficiency).orElseThrow(() -> new EntityNotFoundException("Proficiencia não encontrada"));
+
+            _class.getProficiencies().add(proficiency);
+            proficiency.getClasses().add(_class);
 
             classRepository.save(_class);
 

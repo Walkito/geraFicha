@@ -33,4 +33,10 @@ public class AntecedentController {
                                              @RequestParam(name = "idItem") int idItem){
         return antecedentService.linkAntecedentAndItem(idAntecedent, idItem);
     }
+
+    @PostMapping(path = "/linkProficiency")
+    public ApiResponse linkAntecedentAndProficiency(@RequestParam(name = "idAntecedent") int idAntecedent,
+                                                    @RequestParam(name = "idProficiency") int idProficiency){
+        return antecedentService.linkAntecedentAndProficiency(idAntecedent, idProficiency);
+    }
 }

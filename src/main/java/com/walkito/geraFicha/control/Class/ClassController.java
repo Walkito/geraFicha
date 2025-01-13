@@ -40,4 +40,10 @@ public class ClassController {
                                                   @RequestParam(name = "idCharacteristic") int idCharacteristic){
         return classService.linkClassAndCharacteristic(idClass, idCharacteristic);
     }
+
+    @PostMapping(path = "/linkProficiency")
+    public ApiResponse linkClassAndProficiency(@RequestParam(name = "idClass") int idCLass,
+                                               @RequestParam(name = "idProficiency") int idProficiency){
+        return classService.linkClassAndProficiency(idCLass, idProficiency);
+    }
 }

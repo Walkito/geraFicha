@@ -3,6 +3,7 @@ package com.walkito.geraFicha.model.Antecedent;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.walkito.geraFicha.model.Item.Item;
 import com.walkito.geraFicha.model.Language.Language;
+import com.walkito.geraFicha.model.Proficiency.Proficiency;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -26,7 +27,19 @@ public class Antecedent {
     @JoinTable
     private List<Item> itens = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable
+    private List<Proficiency> proficiencies = new ArrayList<>();
+
     public Antecedent() {
+    }
+
+    public List<Proficiency> getProficiencies() {
+        return proficiencies;
+    }
+
+    public void setProficiencies(List<Proficiency> proficiencies) {
+        this.proficiencies = proficiencies;
     }
 
     public List<Item> getItens() {
