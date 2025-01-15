@@ -2,6 +2,7 @@ package com.walkito.geraFicha.model.Race.Trait;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.walkito.geraFicha.model.Race.Race;
+import com.walkito.geraFicha.model.Race.Trait.DraconicAncestor.DraconicAncestor;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -23,6 +24,21 @@ public class Trait {
     @ManyToMany(mappedBy = "traits")
     @JsonIgnore
     private List<Race> races = new ArrayList<>();
+
+    @OneToMany(mappedBy = "trait")
+    @JsonIgnore
+    private List<DraconicAncestor> draconicAncestors = new ArrayList<>();
+
+    public Trait() {
+    }
+
+    public List<DraconicAncestor> getDraconicAncestors() {
+        return draconicAncestors;
+    }
+
+    public void setDraconicAncestors(List<DraconicAncestor> draconicAncestors) {
+        this.draconicAncestors = draconicAncestors;
+    }
 
     public String getTxDescription() {
         return txDescription;
