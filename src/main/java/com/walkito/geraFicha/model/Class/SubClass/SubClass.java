@@ -1,7 +1,7 @@
 package com.walkito.geraFicha.model.Class.SubClass;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.walkito.geraFicha.model.Class.Characteristic.Characteristic;
+import com.walkito.geraFicha.model.Class.ClassCharacteristic.ClassCharacteristic;
 import com.walkito.geraFicha.model.Class.Class;
 import jakarta.persistence.*;
 
@@ -24,17 +24,17 @@ public class SubClass {
 
     @ManyToMany
     @JoinTable
-    private List<Characteristic> characteristics = new ArrayList<>();
+    private List<ClassCharacteristic> classCharacteristics = new ArrayList<>();
 
     public SubClass() {
     }
 
-    public List<Characteristic> getCharacteristics() {
-        return characteristics;
+    public List<ClassCharacteristic> getCharacteristics() {
+        return classCharacteristics;
     }
 
-    public void setCharacteristics(List<Characteristic> characteristics) {
-        this.characteristics = characteristics;
+    public void setCharacteristics(List<ClassCharacteristic> classCharacteristics) {
+        this.classCharacteristics = classCharacteristics;
     }
 
     public int getId() {

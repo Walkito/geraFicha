@@ -1,7 +1,7 @@
 package com.walkito.geraFicha.model.Level;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.walkito.geraFicha.model.Class.Characteristic.Characteristic;
+import com.walkito.geraFicha.model.Class.ClassCharacteristic.ClassCharacteristic;
 import com.walkito.geraFicha.model.Magic.Magic;
 import jakarta.persistence.*;
 
@@ -23,7 +23,7 @@ public class Level {
 
     @ManyToMany(mappedBy = "levels")
     @JsonIgnore
-    private List<Characteristic> characteristics = new ArrayList<>();
+    private List<ClassCharacteristic> classCharacteristics = new ArrayList<>();
 
     @OneToMany(mappedBy = "level")
     @JsonIgnore
@@ -48,12 +48,12 @@ public class Level {
         this.id = id;
     }
 
-    public List<Characteristic> getCharacteristics() {
-        return characteristics;
+    public List<ClassCharacteristic> getCharacteristics() {
+        return classCharacteristics;
     }
 
-    public void setCharacteristics(List<Characteristic> characteristics) {
-        this.characteristics = characteristics;
+    public void setCharacteristics(List<ClassCharacteristic> classCharacteristics) {
+        this.classCharacteristics = classCharacteristics;
     }
 
     public int getNuProficiency() {

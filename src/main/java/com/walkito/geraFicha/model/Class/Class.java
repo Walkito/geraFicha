@@ -1,7 +1,7 @@
 package com.walkito.geraFicha.model.Class;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.walkito.geraFicha.model.Class.Characteristic.Characteristic;
+import com.walkito.geraFicha.model.Class.ClassCharacteristic.ClassCharacteristic;
 import com.walkito.geraFicha.model.Class.SubClass.SubClass;
 import com.walkito.geraFicha.model.Item.Item;
 import com.walkito.geraFicha.model.Magic.Magic;
@@ -31,7 +31,7 @@ public class Class {
 
     @ManyToMany
     @JoinTable
-    private List<Characteristic> characteristics = new ArrayList<>();
+    private List<ClassCharacteristic> classCharacteristics = new ArrayList<>();
 
     @ManyToMany
     @JoinTable
@@ -60,12 +60,12 @@ public class Class {
         this.proficiencies = proficiencies;
     }
 
-    public List<Characteristic> getCharacteristics() {
-        return characteristics;
+    public List<ClassCharacteristic> getCharacteristics() {
+        return classCharacteristics;
     }
 
-    public void setCharacteristics(List<Characteristic> characteristics) {
-        this.characteristics = characteristics;
+    public void setCharacteristics(List<ClassCharacteristic> classCharacteristics) {
+        this.classCharacteristics = classCharacteristics;
     }
 
     public List<SubClass> getSubClasses() {

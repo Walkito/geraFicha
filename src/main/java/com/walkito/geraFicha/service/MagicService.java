@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class MagicService {
     @Autowired
@@ -19,11 +21,11 @@ public class MagicService {
     @Autowired
     private ClassRepository classRepository;
 
-    public ApiResponse createMagic(Magic magic) {
+    public ApiResponse createMagic(List<Magic> magics) {
         try {
             return new ApiResponse(
                     "Magia criada com sucesso.",
-                    magicRepository.save(magic),
+                    magicRepository.saveAll(magics),
                     HttpStatus.CREATED.value()
             );
         } catch (Exception e) {

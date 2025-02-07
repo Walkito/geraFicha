@@ -2,8 +2,8 @@ package com.walkito.geraFicha.service.Class;
 
 import com.walkito.geraFicha.config.Utils;
 import com.walkito.geraFicha.model.ApiResponse;
-import com.walkito.geraFicha.model.Class.Characteristic.Characteristic;
-import com.walkito.geraFicha.model.Class.Characteristic.CharacteristicRepository;
+import com.walkito.geraFicha.model.Class.ClassCharacteristic.ClassCharacteristic;
+import com.walkito.geraFicha.model.Class.ClassCharacteristic.ClassCharacteristicRepository;
 import com.walkito.geraFicha.model.Class.SubClass.SubClass;
 import com.walkito.geraFicha.model.Class.SubClass.SubClassRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -17,7 +17,7 @@ public class SubClassService {
     SubClassRepository subClassRepository;
 
     @Autowired
-    CharacteristicRepository characteristicRepository;
+    ClassCharacteristicRepository classCharacteristicRepository;
 
     public ApiResponse createSubClass(SubClass subClass){
         try{
@@ -34,10 +34,10 @@ public class SubClassService {
     public ApiResponse linkSubClassAndCharacteristic(int idSubClass, int idCharacteristic){
         try {
             SubClass subClass = subClassRepository.findById(idSubClass).orElseThrow(() -> new EntityNotFoundException("Sub Classe não achada"));
-            Characteristic characteristic = characteristicRepository.findById(idCharacteristic).orElseThrow(() -> new EntityNotFoundException("Caracteristica não encontrada"));
+            ClassCharacteristic classCharacteristic = classCharacteristicRepository.findById(idCharacteristic).orElseThrow(() -> new EntityNotFoundException("Caracteristica não encontrada"));
 
-            subClass.getCharacteristics().add(characteristic);
-            characteristic.getSubClasses().add(subClass);
+            subClass.getCharacteristics().add(classCharacteristic);
+            classCharacteristic.getSubClasses().add(subClass);
 
             subClassRepository.save(subClass);
 

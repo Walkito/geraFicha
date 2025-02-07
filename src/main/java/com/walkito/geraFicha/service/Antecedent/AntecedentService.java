@@ -1,7 +1,9 @@
-package com.walkito.geraFicha.service;
+package com.walkito.geraFicha.service.Antecedent;
 
 import com.walkito.geraFicha.config.Utils;
 import com.walkito.geraFicha.model.Antecedent.Antecedent;
+import com.walkito.geraFicha.model.Antecedent.AntecedentCharacteristic.AntecedentCharacteristic;
+import com.walkito.geraFicha.model.Antecedent.AntecedentCharacteristic.AntecedentCharacteristicRepository;
 import com.walkito.geraFicha.model.Antecedent.AntecedentRepository;
 import com.walkito.geraFicha.model.ApiResponse;
 import com.walkito.geraFicha.model.Item.Item;
@@ -20,6 +22,9 @@ public class    AntecedentService {
 
     @Autowired
     private AntecedentRepository antecedentRepository;
+
+    @Autowired
+    private AntecedentCharacteristicRepository antecedentCharacteristicRepository;
 
     @Autowired
     private LanguageRepository languageRepository;
@@ -98,7 +103,24 @@ public class    AntecedentService {
 
             return Utils.getDefaultLinkResponse();
         } catch (Exception e){
+            return Utils.getDefaultInternalError(e);
+        }
+    }
+
+    public ApiResponse linkAntecedentAndAntecedentCharacteristic(int idAntecedent, int idCharacteristicAntecedent){
+        try{
+            Antecedent antecedent = antecedentRepository.findById(idAntecedent).orElseThrow(() -> new EntityNotFoundException("Antecedente não encontrado"));
+            AntecedentCharacteristic antecedentCharacteristic = antecedentCharacteristicRepository.findById(idCharacteristicAntecedent)
+                    .orElseThrow(() -> new EntityNotFoundException("Característica Não Encontrada"));
+
+            antecedent.getAntecedentCharacteristics().add(antecedentCharacteristic);
+            antecedentCharacteristic.getAntecedents().add(antecedent);
+
+            antecedentRepository.save(antecedent);
+
             return Utils.getDefaultLinkResponse();
+        } catch (Exception e){
+            return Utils.getDefaultInternalError(e);
         }
     }
 }

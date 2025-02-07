@@ -1,50 +1,30 @@
-package com.walkito.geraFicha.model.Item;
+package com.walkito.geraFicha.model.Antecedent.AntecedentCharacteristic;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.walkito.geraFicha.model.Antecedent.Antecedent;
-import com.walkito.geraFicha.model.Class.Class;
 import jakarta.persistence.*;
-import org.hibernate.annotations.Comment;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "itens")
-public class Item {
+@Table(name = "antecedent_characteristics")
+public class AntecedentCharacteristic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(length = 50)
+    @Column(length = 40)
     private String txName;
-
-    @Column(length = 3)
-    @Comment("ASC - Armas Simples Corpo / ASD - Armas Simples Distancia / AMC - Armas Marciais Corpo / AMD - Armas Marciais Distancai" +
-            " / EQP - Equipamento / PCE - Pacote de Equipamento / FER - Ferramentas / AML - Armadura Leve / AMM - Armadura Média / " +
-            "AMP - Armadura Pesada / ESC - Escudo")
-    private String tpItem;
 
     @Column(columnDefinition = "TEXT")
     private String txDescription;
 
-    @ManyToMany(mappedBy = "itens")
+    @ManyToMany(mappedBy = "antecedentCharacteristics")
     @JsonIgnore
     private List<Antecedent> antecedents = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "itens")
-    @JsonIgnore
-    private List<Class> classes = new ArrayList<>();
-
-    public Item() {
-    }
-
-    public List<Class> getClasses() {
-        return classes;
-    }
-
-    public void setClasses(List<Class> classes) {
-        this.classes = classes;
+    public AntecedentCharacteristic() {
     }
 
     public List<Antecedent> getAntecedents() {
@@ -69,14 +49,6 @@ public class Item {
 
     public void setTxName(String txName) {
         this.txName = txName;
-    }
-
-    public String getTpItem() {
-        return tpItem;
-    }
-
-    public void setTpItem(String tpItem) {
-        this.tpItem = tpItem;
     }
 
     public String getTxDescription() {

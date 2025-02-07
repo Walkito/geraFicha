@@ -1,4 +1,4 @@
-package com.walkito.geraFicha.model.Class.Characteristic;
+package com.walkito.geraFicha.model.Class.ClassCharacteristic;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.walkito.geraFicha.model.Class.Class;
@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "characteristics")
-public class Characteristic {
+@Table(name = "class_characteristics")
+public class ClassCharacteristic {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -23,11 +23,11 @@ public class Characteristic {
     @Column(columnDefinition = "TEXT")
     private String txDescription;
 
-    @ManyToMany(mappedBy = "characteristics")
+    @ManyToMany(mappedBy = "classCharacteristics")
     @JsonIgnore
     private List<SubClass> subClasses = new ArrayList<>();
 
-    @ManyToMany(mappedBy = "characteristics")
+    @ManyToMany(mappedBy = "classCharacteristics")
     @JsonIgnore
     private List<Class> classes = new ArrayList<>();
 
@@ -39,7 +39,7 @@ public class Characteristic {
     @JoinTable
     private List<Level> levels = new ArrayList<>();
 
-    public Characteristic() {
+    public ClassCharacteristic() {
     }
 
     public List<Level> getLevels() {

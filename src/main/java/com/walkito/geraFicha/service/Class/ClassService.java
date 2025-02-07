@@ -2,8 +2,8 @@ package com.walkito.geraFicha.service.Class;
 
 import com.walkito.geraFicha.config.Utils;
 import com.walkito.geraFicha.model.ApiResponse;
-import com.walkito.geraFicha.model.Class.Characteristic.Characteristic;
-import com.walkito.geraFicha.model.Class.Characteristic.CharacteristicRepository;
+import com.walkito.geraFicha.model.Class.ClassCharacteristic.ClassCharacteristic;
+import com.walkito.geraFicha.model.Class.ClassCharacteristic.ClassCharacteristicRepository;
 import com.walkito.geraFicha.model.Class.Class;
 import com.walkito.geraFicha.model.Class.ClassRepository;
 import com.walkito.geraFicha.model.Class.SubClass.SubClass;
@@ -30,7 +30,7 @@ public class ClassService {
     private SubClassRepository subClassRepository;
 
     @Autowired
-    private CharacteristicRepository characteristicRepository;
+    private ClassCharacteristicRepository classCharacteristicRepository;
 
     @Autowired
     private ProficiencyRepository proficiencyRepository;
@@ -94,10 +94,10 @@ public class ClassService {
     public ApiResponse linkClassAndCharacteristic(int idClass, int idCharacteristic){
         try{
             Class _class = classRepository.findById(idClass).orElseThrow(() -> new EntityNotFoundException("Classe não encontrada"));
-            Characteristic characteristic = characteristicRepository.findById(idCharacteristic).orElseThrow(() -> new EntityNotFoundException("Caracteristica não encontrada"));
+            ClassCharacteristic classCharacteristic = classCharacteristicRepository.findById(idCharacteristic).orElseThrow(() -> new EntityNotFoundException("Caracteristica não encontrada"));
 
-            _class.getCharacteristics().add(characteristic);
-            characteristic.getClasses().add(_class);
+            _class.getCharacteristics().add(classCharacteristic);
+            classCharacteristic.getClasses().add(_class);
 
             classRepository.save(_class);
 

@@ -2,7 +2,7 @@ package com.walkito.geraFicha.model.Proficiency;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.walkito.geraFicha.model.Antecedent.Antecedent;
-import com.walkito.geraFicha.model.Class.Characteristic.Characteristic;
+import com.walkito.geraFicha.model.Class.ClassCharacteristic.ClassCharacteristic;
 import com.walkito.geraFicha.model.Class.Class;
 import jakarta.persistence.*;
 
@@ -32,17 +32,17 @@ public class Proficiency {
 
     @ManyToMany(mappedBy = "proficiencies")
     @JsonIgnore
-    private List<Characteristic> characteristics = new ArrayList<>();
+    private List<ClassCharacteristic> classCharacteristics = new ArrayList<>();
 
     public Proficiency() {
     }
 
-    public List<Characteristic> getCharacteristics() {
-        return characteristics;
+    public List<ClassCharacteristic> getCharacteristics() {
+        return classCharacteristics;
     }
 
-    public void setCharacteristics(List<Characteristic> characteristics) {
-        this.characteristics = characteristics;
+    public void setCharacteristics(List<ClassCharacteristic> classCharacteristics) {
+        this.classCharacteristics = classCharacteristics;
     }
 
     public List<Class> getClasses() {

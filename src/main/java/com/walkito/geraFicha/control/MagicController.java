@@ -6,6 +6,8 @@ import com.walkito.geraFicha.service.MagicService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/magic")
 public class MagicController {
@@ -13,8 +15,8 @@ public class MagicController {
     private MagicService magicService;
 
     @PostMapping
-    public ApiResponse createMagic(@RequestBody Magic magic){
-        return magicService.createMagic(magic);
+    public ApiResponse createMagic(@RequestBody List<Magic> magics){
+        return magicService.createMagic(magics);
     }
 
     @PostMapping(path = "/linkClass")

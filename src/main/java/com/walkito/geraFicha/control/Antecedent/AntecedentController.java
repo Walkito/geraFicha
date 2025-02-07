@@ -1,8 +1,8 @@
-package com.walkito.geraFicha.control;
+package com.walkito.geraFicha.control.Antecedent;
 
 import com.walkito.geraFicha.model.Antecedent.Antecedent;
 import com.walkito.geraFicha.model.ApiResponse;
-import com.walkito.geraFicha.service.AntecedentService;
+import com.walkito.geraFicha.service.Antecedent.AntecedentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -38,5 +38,11 @@ public class AntecedentController {
     public ApiResponse linkAntecedentAndProficiency(@RequestParam(name = "idAntecedent") int idAntecedent,
                                                     @RequestParam(name = "idProficiency") int idProficiency){
         return antecedentService.linkAntecedentAndProficiency(idAntecedent, idProficiency);
+    }
+
+    @PostMapping(path = "/linkAntecedentCharacteristic")
+    public ApiResponse linkAntecedentAndAntecedentCharacteristic(@RequestParam(name = "idAntecedent") int idAntecedent,
+                                                    @RequestParam(name = "idAntecedentCharacteristic") int idAntecedentCharacteristic){
+        return antecedentService.linkAntecedentAndAntecedentCharacteristic(idAntecedent, idAntecedentCharacteristic);
     }
 }
