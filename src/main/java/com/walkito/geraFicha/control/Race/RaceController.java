@@ -21,21 +21,4 @@ public class RaceController {
     public ApiResponse getAllRaces(){
         return raceService.getAllRaces();
     }
-
-    @PostMapping
-    public ApiResponse createRace(@RequestBody Race race){
-        return raceService.createRace(race);
-    }
-
-    @PostMapping(path = "/linkTrait")
-    public ApiResponse linkRaceAndTrait(@RequestParam(name = "idRace") int idRace,
-                                        @RequestParam(name = "idTrait") int idTrait){
-        return raceService.linkRaceAndTrait(idRace, idTrait);
-    }
-
-    @PostMapping(path = "/linkLanguage")
-    public ApiResponse linkLanguageAndRace(@RequestParam(name = "idLanguage") int idLanguage,
-                                           @RequestParam(name = "idRace") int idRace){
-        return raceService.linkRaceAndLanguage(idLanguage, idRace);
-    }
 }

@@ -21,19 +21,7 @@ import org.springframework.stereotype.Service;
 public class ClassService {
 
     @Autowired
-    private ItemRepository itemRepository;
-
-    @Autowired
     private ClassRepository classRepository;
-
-    @Autowired
-    private SubClassRepository subClassRepository;
-
-    @Autowired
-    private ClassCharacteristicRepository classCharacteristicRepository;
-
-    @Autowired
-    private ProficiencyRepository proficiencyRepository;
 
     public ApiResponse getAllClasses(){
         try{
@@ -43,82 +31,6 @@ public class ClassService {
                     HttpStatus.OK.value()
             );
         } catch(Exception e){
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse createClass(Class _class){
-        try{
-            return new ApiResponse(
-                    "Classe criada com sucesso",
-                    classRepository.save(_class),
-                    HttpStatus.CREATED.value()
-            );
-        } catch (Exception e){
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse linkClassAndItem(int idClass, int idItem){
-        try {
-            Class _class = classRepository.findById(idClass).orElseThrow(() -> new EntityNotFoundException("Classe não encontrada"));
-            Item item = itemRepository.findById(idItem).orElseThrow(() -> new EntityNotFoundException("Item não encontrado"));
-
-            _class.getItens().add(item);
-            item.getClasses().add(_class);
-
-            classRepository.save(_class);
-
-            return Utils.getDefaultLinkResponse();
-        } catch(Exception e){
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse linkClassAndSubClass(int idClass, int idSubClass){
-        try {
-            Class _class = classRepository.findById(idClass).orElseThrow(() -> new EntityNotFoundException("Classe não encontrada"));
-            SubClass subClass = subClassRepository.findById(idSubClass).orElseThrow(() -> new EntityNotFoundException("Sub Classe não encontrada"));
-
-            _class.getSubClasses().add(subClass);
-            subClass.getClasses().add(_class);
-
-            classRepository.save(_class);
-
-            return Utils.getDefaultLinkResponse();
-        } catch (Exception e){
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse linkClassAndCharacteristic(int idClass, int idCharacteristic){
-        try{
-            Class _class = classRepository.findById(idClass).orElseThrow(() -> new EntityNotFoundException("Classe não encontrada"));
-            ClassCharacteristic classCharacteristic = classCharacteristicRepository.findById(idCharacteristic).orElseThrow(() -> new EntityNotFoundException("Caracteristica não encontrada"));
-
-            _class.getCharacteristics().add(classCharacteristic);
-            classCharacteristic.getClasses().add(_class);
-
-            classRepository.save(_class);
-
-            return Utils.getDefaultLinkResponse();
-        } catch (Exception e){
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse linkClassAndProficiency(int idClass, int idProficiency){
-        try{
-            Class _class = classRepository.findById(idClass).orElseThrow(() -> new EntityNotFoundException("Classe não encontrada"));
-            Proficiency proficiency = proficiencyRepository.findById(idProficiency).orElseThrow(() -> new EntityNotFoundException("Proficiencia não encontrada"));
-
-            _class.getProficiencies().add(proficiency);
-            proficiency.getClasses().add(_class);
-
-            classRepository.save(_class);
-
-            return Utils.getDefaultLinkResponse();
-        } catch (Exception e){
             return Utils.getDefaultInternalError(e);
         }
     }

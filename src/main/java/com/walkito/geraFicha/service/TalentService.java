@@ -24,16 +24,4 @@ public class TalentService {
             return Utils.getDefaultInternalError(e);
         }
     }
-
-    public ApiResponse createTalent(Talent talent) {
-        try {
-            return new ApiResponse(
-                    "Talento criado com sucesso!",
-                    talentRepository.save(talent),
-                    HttpStatus.CREATED.value()
-            );
-        } catch (Exception e) {
-            return Utils.getDefaultInternalError(e);
-        }
-    }
 }

@@ -22,12 +22,6 @@ public class RaceService {
     @Autowired
     private RaceRepository raceRepository;
 
-    @Autowired
-    private TraitRepository traitRepository;
-
-    @Autowired
-    private LanguageRepository languageRepository;
-
     public ApiResponse getAllRaces() {
         try {
             List<Race> races = raceRepository.findAll();
@@ -56,51 +50,6 @@ public class RaceService {
                     HttpStatus.NOT_FOUND.value()
             ));
         } catch (Exception e) {
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse createRace(Race race) {
-        try {
-
-            return new ApiResponse(
-                    "Raça criada com sucesso",
-                    raceRepository.save(race),
-                    HttpStatus.CREATED.value()
-            );
-        } catch (Exception e) {
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse linkRaceAndTrait(int idRace, int idTrait) {
-        try {
-            Race race = raceRepository.findById(idRace).orElseThrow(() -> new EntityNotFoundException("Nenhuma raça encontrada com este ID: " + idRace));
-            Trait trait = traitRepository.findById(idTrait).orElseThrow(() -> new EntityNotFoundException("Nenhum traço encontrado com este ID: " + idTrait));
-
-            race.getTraits().add(trait);
-            trait.getRaces().add(race);
-
-            raceRepository.save(race);
-
-            return Utils.getDefaultLinkResponse();
-        } catch (Exception e) {
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse linkRaceAndLanguage(int idLanguage, int idRace){
-        try{
-            Race race = raceRepository.findById(idRace).orElseThrow(() -> new EntityNotFoundException("Raça não encontrada"));
-            Language language = languageRepository.findById(idLanguage).orElseThrow(() -> new EntityNotFoundException("Idioma não encontrado"));
-
-            race.getLanguages().add(language);
-            language.getRaces().add(race);
-
-            raceRepository.save(race);
-
-            return Utils.getDefaultLinkResponse();
-        } catch (Exception e){
             return Utils.getDefaultInternalError(e);
         }
     }

@@ -17,33 +17,4 @@ public class ClassController {
     public ApiResponse getAllClasses(){
         return classService.getAllClasses();
     }
-
-    @PostMapping
-    public ApiResponse createClass(@RequestBody Class _class){
-        return classService.createClass(_class);
-    }
-
-    @PostMapping(path = "/linkItem")
-    public ApiResponse linkClassAndItem(@RequestParam(name = "idClass") int idClass,
-                                        @RequestParam(name = "idItem") int idItem){
-        return classService.linkClassAndItem(idClass, idItem);
-    }
-
-    @PostMapping(path = "/linkSubClass")
-    public ApiResponse linkClassAndSubClass(@RequestParam(name = "idClass") int idClass,
-                                            @RequestParam(name = "idSubClass") int idSubClass){
-        return classService.linkClassAndSubClass(idClass, idSubClass);
-    }
-
-    @PostMapping(path = "/linkCharacteristic")
-    public ApiResponse linkClassAndCharacteristic(@RequestParam(name = "idClass") int idClass,
-                                                  @RequestParam(name = "idCharacteristic") int idCharacteristic){
-        return classService.linkClassAndCharacteristic(idClass, idCharacteristic);
-    }
-
-    @PostMapping(path = "/linkProficiency")
-    public ApiResponse linkClassAndProficiency(@RequestParam(name = "idClass") int idCLass,
-                                               @RequestParam(name = "idProficiency") int idProficiency){
-        return classService.linkClassAndProficiency(idCLass, idProficiency);
-    }
 }

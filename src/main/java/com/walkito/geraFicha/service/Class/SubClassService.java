@@ -16,9 +16,6 @@ public class SubClassService {
     @Autowired
     SubClassRepository subClassRepository;
 
-    @Autowired
-    ClassCharacteristicRepository classCharacteristicRepository;
-
     public ApiResponse createSubClass(SubClass subClass){
         try{
             return new ApiResponse(
@@ -26,22 +23,6 @@ public class SubClassService {
                     subClassRepository.save(subClass),
                     HttpStatus.CREATED.value()
             );
-        } catch (Exception e){
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse linkSubClassAndCharacteristic(int idSubClass, int idCharacteristic){
-        try {
-            SubClass subClass = subClassRepository.findById(idSubClass).orElseThrow(() -> new EntityNotFoundException("Sub Classe não achada"));
-            ClassCharacteristic classCharacteristic = classCharacteristicRepository.findById(idCharacteristic).orElseThrow(() -> new EntityNotFoundException("Caracteristica não encontrada"));
-
-            subClass.getCharacteristics().add(classCharacteristic);
-            classCharacteristic.getSubClasses().add(subClass);
-
-            subClassRepository.save(subClass);
-
-            return Utils.getDefaultLinkResponse();
         } catch (Exception e){
             return Utils.getDefaultInternalError(e);
         }

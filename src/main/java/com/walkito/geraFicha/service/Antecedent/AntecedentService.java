@@ -23,18 +23,6 @@ public class    AntecedentService {
     @Autowired
     private AntecedentRepository antecedentRepository;
 
-    @Autowired
-    private AntecedentCharacteristicRepository antecedentCharacteristicRepository;
-
-    @Autowired
-    private LanguageRepository languageRepository;
-
-    @Autowired
-    private ItemRepository itemRepository;
-
-    @Autowired
-    private ProficiencyRepository proficiencyRepository;
-
     public ApiResponse getAllAntecedents(){
         try{
             return new ApiResponse(
@@ -42,83 +30,6 @@ public class    AntecedentService {
                     antecedentRepository.findAll(),
                     HttpStatus.OK.value()
             );
-        } catch (Exception e){
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse createAntecedent(Antecedent antecedent) {
-        try {
-            return new ApiResponse(
-                    "Antecedente criado com sucesso",
-                    antecedentRepository.save(antecedent),
-                    HttpStatus.CREATED.value()
-            );
-        } catch (Exception e) {
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse linkAntecedentAndLanguage(int idAntecedent, int idLanguage){
-        try{
-            Antecedent antecedent = antecedentRepository.findById(idAntecedent).orElseThrow(() -> new EntityNotFoundException("Antecedente não encontrado"));
-            Language language = languageRepository.findById(idLanguage).orElseThrow(() -> new EntityNotFoundException("Idioam não encontrado"));
-
-            antecedent.getLanguages().add(language);
-            language.getAntecedents().add(antecedent);
-
-            antecedentRepository.save(antecedent);
-
-            return Utils.getDefaultLinkResponse();
-        } catch (Exception e){
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse linkAntecedentAndItem(int idAntecedent, int idItem){
-        try{
-            Antecedent antecedent = antecedentRepository.findById(idAntecedent).orElseThrow(() -> new EntityNotFoundException("Antecedente não encontrado"));
-            Item item = itemRepository.findById(idItem).orElseThrow(() -> new EntityNotFoundException("Item não encontrado"));
-
-            antecedent.getItens().add(item);
-            item.getAntecedents().add(antecedent);
-
-            antecedentRepository.save(antecedent);
-
-            return Utils.getDefaultLinkResponse();
-        } catch (Exception e){
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse linkAntecedentAndProficiency(int idAntecedent, int idProficiency){
-        try{
-            Antecedent antecedent = antecedentRepository.findById(idAntecedent).orElseThrow(() -> new EntityNotFoundException("Antecedente não encontrado"));
-            Proficiency proficiency = proficiencyRepository.findById(idProficiency).orElseThrow(() -> new EntityNotFoundException("Proficiencia não encontrada"));
-
-            antecedent.getProficiencies().add(proficiency);
-            proficiency.getAntecedents().add(antecedent);
-
-            antecedentRepository.save(antecedent);
-
-            return Utils.getDefaultLinkResponse();
-        } catch (Exception e){
-            return Utils.getDefaultInternalError(e);
-        }
-    }
-
-    public ApiResponse linkAntecedentAndAntecedentCharacteristic(int idAntecedent, int idCharacteristicAntecedent){
-        try{
-            Antecedent antecedent = antecedentRepository.findById(idAntecedent).orElseThrow(() -> new EntityNotFoundException("Antecedente não encontrado"));
-            AntecedentCharacteristic antecedentCharacteristic = antecedentCharacteristicRepository.findById(idCharacteristicAntecedent)
-                    .orElseThrow(() -> new EntityNotFoundException("Característica Não Encontrada"));
-
-            antecedent.getAntecedentCharacteristics().add(antecedentCharacteristic);
-            antecedentCharacteristic.getAntecedents().add(antecedent);
-
-            antecedentRepository.save(antecedent);
-
-            return Utils.getDefaultLinkResponse();
         } catch (Exception e){
             return Utils.getDefaultInternalError(e);
         }

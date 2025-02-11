@@ -49,18 +49,4 @@ public class TendencyService {
             return Utils.getDefaultInternalError(e);
         }
     }
-
-
-    public ApiResponse createTendency(Tendency tendency) {
-
-        try{
-            return new ApiResponse(
-                   "Tendência criada com sucesso!",
-                   tendencyRepository.save(tendency),
-                   HttpStatus.CREATED.value()
-            );
-        } catch (Exception e){
-            return Utils.getDefaultInternalError(e);
-        }
-    }
 }

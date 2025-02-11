@@ -21,9 +21,4 @@ public class TendencyController {
     public ApiResponse getTendencys(){
         return tendencyService.getAllTendency();
     }
-
-    @PostMapping
-    public ApiResponse createTendency(@RequestBody Tendency tendency){
-        return tendencyService.createTendency(tendency);
-    }
 }

@@ -16,9 +16,5 @@ public class TalentController {
     public ApiResponse getAllTalents(){
         return this.talentService.getAllTalents();
     }
-
-    @PostMapping
-    public ApiResponse createTalent(@RequestBody Talent talent){
-        return this.talentService.createTalent(talent);
-    }
+    
 }
